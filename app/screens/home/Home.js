@@ -6,15 +6,19 @@ import {
   Image,
   TouchableHighlight,
   ActivityIndicator,
+  TouchableOpacity,
   TextInput,
   Dimensions,
   Switch,
   ScrollView,
   KeyboardAvoidingView
 } from 'react-native'
-const height = Dimensions.get('window').height
+import { Icon } from 'native-base'
+import RadarImagePicker from '../../components/ImagePicker'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import Style from './HomeStyle'
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height
 
 const servicesStructure = [
   {
@@ -123,26 +127,32 @@ export default class Home extends Component {
               headerComponent={<CustomSectionHeader />}
               footerComponent={<CustomSectionFooter />}
             >
-              <Cell cellStyle="RightDetail" title="RANGE" detail="RATE" />
+              <Cell
+                cellStyle="RightDetail"
+                title="CURRENCY RANGE"
+                detailTextStyle={{ fontSize: 13 }}
+                titleTextStyle={{ fontSize: 13 }}
+                detail="RATE"
+              />
               <Cell
                 cellStyle="RightDetail"
                 titleTextStyle={{ fontSize: 13 }}
                 detailTextStyle={{ fontSize: 13 }}
-                title="101 - 200"
+                title="$101 - $200"
                 detail="$250"
               />
               <Cell
                 cellStyle="RightDetail"
                 titleTextStyle={{ fontSize: 13 }}
                 detailTextStyle={{ fontSize: 13 }}
-                title="201 - 1000"
+                title="$201 - $1000"
                 detail="$255"
               />
               <Cell
                 cellStyle="RightDetail"
                 titleTextStyle={{ fontSize: 13 }}
                 detailTextStyle={{ fontSize: 13 }}
-                title="201 - 1000"
+                title="$201 - $1000"
                 detail="$255"
               />
               <Cell
@@ -156,62 +166,32 @@ export default class Home extends Component {
           </TableView>
           <View style={Style.amountContainer}>
             <Text style={Style.amountContainerTitle}>
-              Please enter denomination of card and quantity in the input boxes
-              below.
+              Please enter total amount of card you're selling below.
             </Text>
             <View style={{ margin: 10 }} />
-            <Text style={Style.amountContainerTitle}>For example:</Text>
-            <Text style={Style.amountContainerSample}>
-              Denomination($): 100, Quantity: 2 = $200
-            </Text>
-            <Text style={Style.amountContainerSample}>
-              Equals: 100*2 = $200
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: 20,
-                justifyContent: 'space-between'
-              }}
-            >
-              <Text>Denomination</Text>
-              <Text>Quantity</Text>
-              <Text>Amount</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: 10,
-                justifyContent: 'space-between'
-              }}
-            >
-              <TextInput
-                placeholder="Denomination"
-                placeholderTextColor="#bababa"
-                keyboardType="numeric"
+
+            <View style={Style.amountTextInputContainer}>
+              <View
                 style={{
-                  height: 40,
-                  borderColor: 'gray',
-                  borderWidth: 1,
-                  borderRadius: 5,
-                  width: 100
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
                 }}
-              />
-              <TextInput
-                placeholder="Quantity"
-                placeholderTextColor="#bababa"
-                keyboardType="numeric"
-                style={{
-                  borderRadius: 5,
-                  height: 40,
-                  borderColor: 'gray',
-                  borderWidth: 1,
-                  width: 100
-                }}
-              />
-              <Text>$10</Text>
+              >
+                <TextInput
+                  placeholder="Quantity"
+                  placeholderTextColor="#bababa"
+                  keyboardType="numeric"
+                  style={Style.amountTextInput}
+                />
+              </View>
             </View>
           </View>
+          <View>
+            <RadarImagePicker />
+          </View>
+          <TouchableOpacity style={Style.buttonContainer}>
+          <Text style={Style.buttonText}>SUBMIT</Text>
+        </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     )
