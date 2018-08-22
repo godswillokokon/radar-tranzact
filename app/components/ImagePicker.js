@@ -91,6 +91,42 @@ export default class RadarImagePicker extends React.Component {
     )
   }
 
+  _pickImage = async () => {
+    const checkPermissions = await this.checkCameraRollPermission()
+    if (!checkPermissions) return
+    let result = await ImagePicker.launchImageLibraryAsync({
+      quality: 1
+    })
+
+    console.log(result)
+
+    if (!result.cancelled) {
+      this.setState(({ images }) => ({ images: images.concat(result.uri) }))
+    }
+  }
+
+  removeImage = assetUrl => {
+    const { images } = this.state
+    const cloneImages = [...images]
+    const getIdx = cloneImages.indexOf(assetUrl)
+    console.log(getIdx)
+    const updatedList = cloneImages.splice(getIdx, 1);
+    console.log(cloneImages, '-------', images)
+    Alert.alert(
+        'Are you sure you want to delete?',
+        null,
+        [
+          { text: 'OK', onPress: () => this.setState({images: cloneImages}) },
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel'
+          }
+        ]
+        //
+      )
+  }
+
   render() {
     let { image, images, hasCameraRollPermissions } = this.state
 
@@ -111,21 +147,11 @@ export default class RadarImagePicker extends React.Component {
                       style={Style.imageSelected}
                     />
                   )}
-                  <View
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      bottom: 0,
-                      width: 25,
-                      height: 25,
-                      backgroundColor: '#fff',
-                      borderColor: '#fff',
-                      borderRadius: 12.5,
-                      borderWidth: 1
-                    }}
-                  >
-                    <Icon name="md-add" style={{ left: 2, bottom: 3 }} />
-                  </View>
+                  <TouchableOpacity onPress={() => this.removeImage(image)}>
+                    <View style={Style.actionBtnView}>
+                      <Icon name="md-close" style={Style.actionBtnIcon} />
+                    </View>
+                  </TouchableOpacity>
                 </View>
               ))}
               {this.addImageBox()}
@@ -133,20 +159,8 @@ export default class RadarImagePicker extends React.Component {
           ) : (
             <TouchableOpacity onPress={this._pickImage}>
               <View style={Style.imagePreview}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    bottom: 0,
-                    width: 25,
-                    height: 25,
-                    backgroundColor: '#fff',
-                    borderColor: '#fff',
-                    borderRadius: 12.5,
-                    borderWidth: 1
-                  }}
-                >
-                  <Icon name="md-add" style={{ left: 2, bottom: 3 }} />
+                <View style={Style.actionBtnView}>
+                  <Icon name="md-add" style={Style.actionBtnIcon} />
                 </View>
               </View>
             </TouchableOpacity>
@@ -156,20 +170,5 @@ export default class RadarImagePicker extends React.Component {
         {!hasCameraRollPermissions && <Text>Permission not granted</Text>}
       </View>
     )
-  }
-
-  _pickImage = async () => {
-    const checkPermissions = await this.checkCameraRollPermission()
-    if (!checkPermissions) return
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3]
-    })
-
-    console.log(result)
-
-    if (!result.cancelled) {
-      this.setState(({ images }) => ({ images: images.concat(result.uri) }))
-    }
   }
 }

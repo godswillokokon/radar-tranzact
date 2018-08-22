@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   buttonContainer: {
-    // backgroundColor: '#515151',
     backgroundColor: theme.colors.darkFusion,
     margin: 10,
     height: 50,
