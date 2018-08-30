@@ -109,9 +109,7 @@ export default class RadarImagePicker extends React.Component {
     const { images } = this.state
     const cloneImages = [...images]
     const getIdx = cloneImages.indexOf(assetUrl)
-    console.log(getIdx)
     const updatedList = cloneImages.splice(getIdx, 1);
-    console.log(cloneImages, '-------', images)
     Alert.alert(
         'Are you sure you want to delete?',
         null,

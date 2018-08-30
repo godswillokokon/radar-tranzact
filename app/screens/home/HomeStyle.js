@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: theme.colors.darkFusion,
     margin: 10,
+    marginTop: 25,
     height: 50,
     justifyContent: 'center'
   },

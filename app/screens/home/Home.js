@@ -190,8 +190,8 @@ export default class Home extends Component {
             <RadarImagePicker />
           </View>
           <TouchableOpacity style={Style.buttonContainer}>
-          <Text style={Style.buttonText}>SUBMIT</Text>
-        </TouchableOpacity>
+            <Text style={Style.buttonText}>SUBMIT</Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     )
