@@ -10,6 +10,7 @@ export default class SideMenu extends Component {
       <View style={styles.container}>
         <Text style={styles.text}>Transaction History</Text>
         <Text style={styles.text} onPress={() => Linking.openURL('whatsapp://send?phone=2348141224609')}>Chat with a staff</Text>
+        <Text style={styles.text}>Terms and Conditions</Text>
         <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.closeDrawer())}>
           <Text style={styles.button}>Close</Text>
         </TouchableOpacity>
@@ -26,8 +27,10 @@ const styles = {
     alignItems: 'center',
   },
   text: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Baskerville',
+    alignSelf: 'flex-start',
+    padding: 10
   },
   button: {
     margin: 16,

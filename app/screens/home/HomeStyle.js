@@ -51,23 +51,12 @@ const styles = StyleSheet.create({
   amountTextInputTitle: {
     marginTop: 10
   },
-  amountTextInputContainer: {},
   amountTextInput: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 3,
     width: '100%'
-  },
-  amountAddNew: {
-    borderWidth: 1.5,
-    borderRadius: 15,
-    borderColor: '#2f2f2f',
-    color: '#2f2f2f',
-    fontWeight: '500',
-    marginTop: 15,
-    padding: 5,
-    width: width / 4
   },
   dividingAmountLine: {
     borderWidth: 0.4,

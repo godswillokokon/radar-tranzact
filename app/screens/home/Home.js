@@ -15,7 +15,7 @@ import {
 } from 'react-native'
 import { Icon } from 'native-base'
 import RadarImagePicker from '../../components/ImagePicker'
-import { Cell, Section, TableView } from 'react-native-tableview-simple'
+import ItunesRates from '../../components/giftcardrates/itunesRates';
 import Style from './HomeStyle'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
@@ -38,22 +38,6 @@ const servicesStructure = [
   }
 ]
 
-const CustomSectionHeader = () => (
-  <View style={Style.tableViewSectionHeader}>
-    <Text style={Style.tableViewSectionHeaderText}>LATEST GC RATES($)</Text>
-  </View>
-)
-
-const CustomSectionFooter = () => (
-  <View style={Style.tableViewSectionFooter}>
-    <Text style={Style.tableViewSectionFooterText}>
-      Rates are updates regularly
-    </Text>
-    <Text style={Style.tableViewSectionFooterText}>
-      Last updated: 10/08/2018, 10:15pm
-    </Text>
-  </View>
-)
 
 export default class Home extends Component {
   state = {
@@ -122,48 +106,7 @@ export default class Home extends Component {
             })}
           </View>
 
-          <TableView>
-            <Section
-              headerComponent={<CustomSectionHeader />}
-              footerComponent={<CustomSectionFooter />}
-            >
-              <Cell
-                cellStyle="RightDetail"
-                title="CURRENCY RANGE"
-                detailTextStyle={{ fontSize: 13 }}
-                titleTextStyle={{ fontSize: 13 }}
-                detail="RATE"
-              />
-              <Cell
-                cellStyle="RightDetail"
-                titleTextStyle={{ fontSize: 13 }}
-                detailTextStyle={{ fontSize: 13 }}
-                title="$101 - $200"
-                detail="$250"
-              />
-              <Cell
-                cellStyle="RightDetail"
-                titleTextStyle={{ fontSize: 13 }}
-                detailTextStyle={{ fontSize: 13 }}
-                title="$201 - $1000"
-                detail="$255"
-              />
-              <Cell
-                cellStyle="RightDetail"
-                titleTextStyle={{ fontSize: 13 }}
-                detailTextStyle={{ fontSize: 13 }}
-                title="$201 - $1000"
-                detail="$255"
-              />
-              <Cell
-                cellStyle="RightDetail"
-                titleTextStyle={{ fontSize: 13 }}
-                detailTextStyle={{ fontSize: 13 }}
-                title="E-CODE"
-                detail="$200"
-              />
-            </Section>
-          </TableView>
+          <ItunesRates />
           <View style={Style.amountContainer}>
             <Text style={Style.amountContainerTitle}>
               Please enter total amount of card you're selling below.
