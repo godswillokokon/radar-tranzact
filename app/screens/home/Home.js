@@ -14,8 +14,10 @@ import {
   KeyboardAvoidingView
 } from 'react-native'
 import { Icon } from 'native-base'
+import { connect } from 'react-redux'
+import { NewTransaction } from '@actions/TransactionActions'
 import RadarImagePicker from '../../components/ImagePicker'
-import ItunesRates from '../../components/giftcardrates/itunesRates';
+import ItunesRates from '../../components/giftcardrates/itunesRates'
 import Style from './HomeStyle'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
@@ -24,25 +26,29 @@ const servicesStructure = [
   {
     imageUri:
       'https://www.perdigital.com/contents/brand-logo/Logo_iTunes_Gift_Card.jpg',
-    serviceText: 'Itunes GC'
+    serviceText: 'Itunes GC',
+    key: 'ITUNES'
   },
   {
     imageUri:
       'https://images.g2a.com/newlayout/600x351/1x1x0/d554d7a5d2da/59e5ae945bafe388fc3cb5f5',
-    serviceText: 'Amazon GC'
+    serviceText: 'Amazon GC',
+    key: 'AMAZON'
   },
   {
     imageUri:
       'https://www.pcgamesupply.com/media/assets/images/MobileGroupImages/steam.png',
-    serviceText: 'Steam GC'
+    serviceText: 'Steam GC',
+    key: 'STEAM'
   }
 ]
 
-
-export default class Home extends Component {
+class Home extends Component {
   state = {
     isGcSelected: false,
-    gcSelected: null
+    gcSelected: null,
+    cardTotalAmount: '0',
+    cardImages: []
   }
 
   onGCSelected = gc => {
@@ -50,6 +56,24 @@ export default class Home extends Component {
       isGcSelected: true,
       gcSelected: gc
     }))
+  }
+
+  onCardImageSelected = cardImages => {
+    console.log(cardImages)
+    this.setState({
+      cardImages
+    })
+  }
+
+  onSubmit = () => {
+    const { cardImages, cardTotalAmount, gcSelected } = this.state
+    const payload = {
+      cardImages,
+      cardTotalAmount,
+      cardType: gcSelected
+    }
+    console.log('--asub', payload)
+    this.props.onSubmit(payload)
   }
 
   render() {
@@ -69,11 +93,11 @@ export default class Home extends Component {
         >
           <Text style={styles.text}>Select GC you want to sell</Text>
           <View style={Style.services}>
-            {servicesStructure.map(({ serviceText, imageUri }, key) => {
+            {servicesStructure.map(({ serviceText, imageUri, key: cardKey }, key) => {
               return (
                 <TouchableHighlight
                   key={key}
-                  onPress={() => this.onGCSelected(serviceText)}
+                  onPress={() => this.onGCSelected(cardKey)}
                   activeOpacity={10}
                   style={Style.serviceTouchable}
                   underlayColor="#bababa"
@@ -82,7 +106,7 @@ export default class Home extends Component {
                     <Image
                       style={[
                         Style.serviceImage,
-                        isGcSelected && gcSelected === serviceText
+                        isGcSelected && gcSelected === cardKey
                           ? Style.serviceSelectedHightlight
                           : {}
                       ]}
@@ -93,7 +117,7 @@ export default class Home extends Component {
                     <Text
                       style={[
                         Style.serviceText,
-                        isGcSelected && gcSelected === serviceText
+                        isGcSelected && gcSelected === cardKey
                           ? Style.serviceSelectedHightlightText
                           : {}
                       ]}
@@ -121,18 +145,22 @@ export default class Home extends Component {
                 }}
               >
                 <TextInput
-                  placeholder="Quantity"
+                  placeholder="Total Amount in usd"
                   placeholderTextColor="#bababa"
                   keyboardType="numeric"
+                  onChangeText={cardTotalAmount =>
+                    this.setState({ cardTotalAmount })
+                  }
+                  value={this.state.cardTotalAmount}
                   style={Style.amountTextInput}
                 />
               </View>
             </View>
           </View>
           <View>
-            <RadarImagePicker />
+            <RadarImagePicker onCardImageSelected={this.onCardImageSelected} />
           </View>
-          <TouchableOpacity style={Style.buttonContainer}>
+          <TouchableOpacity style={Style.buttonContainer} onPress={this.onSubmit}>
             <Text style={Style.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -148,3 +176,9 @@ const styles = {
     textAlign: 'center'
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (data) => dispatch(NewTransaction(data))
+})
+
+export default connect(null, mapDispatchToProps)(Home);

@@ -102,6 +102,7 @@ export default class RadarImagePicker extends React.Component {
 
     if (!result.cancelled) {
       this.setState(({ images }) => ({ images: images.concat(result.uri) }))
+      this.props.onCardImageSelected(this.state.images)
     }
   }
 
@@ -114,7 +115,11 @@ export default class RadarImagePicker extends React.Component {
         'Are you sure you want to delete?',
         null,
         [
-          { text: 'OK', onPress: () => this.setState({images: cloneImages}) },
+          { text: 'OK', onPress: () => {
+            this.setState({images: cloneImages}) 
+            this.props.onCardImageSelected(cloneImages)
+          }
+          },
           {
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
