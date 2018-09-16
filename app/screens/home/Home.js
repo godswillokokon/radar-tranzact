@@ -16,8 +16,9 @@ import {
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
 import { NewTransaction } from '@actions/TransactionActions'
-import RadarImagePicker from '../../components/ImagePicker'
-import ItunesRates from '../../components/giftcardrates/itunesRates'
+import RadarImagePicker from '@components/ImagePicker'
+import VerificationModal from '@components/verifyModal'
+import ItunesRates from '@components/giftcardrates/itunesRates'
 import Style from './HomeStyle'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
@@ -86,6 +87,7 @@ class Home extends Component {
         enabled
         keyboardVerticalOffset={height / 6}
       >
+        <VerificationModal />
         <StatusBar barStyle={'light-content'} />
         <ScrollView
           style={{ width: '100%' }}
