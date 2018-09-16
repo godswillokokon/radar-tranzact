@@ -1,14 +1,24 @@
-import React from 'react'
-import {
-  Text,
-  View
-} from 'react-native'
-import Style from './rateStyle'
+import React, { Component } from "react";
+import { Text, View } from "react-native";
+import { connect } from "react-redux";
+import { Icon } from "native-base";
+import Style from "./rateStyle";
 
-const CustomSectionHeader = () => (
-  <View style={Style.tableViewSectionHeader}>
-    <Text style={Style.tableViewSectionHeaderText}>LATEST GC RATES($)</Text>
-  </View>
-)
+class CustomSectionHeader extends Component {
+  render() {
+    const { selectedGC } = this.props;
+    return (
+      <View style={Style.tableViewSectionHeader}>
+        <Icon name="flash" size={10} style={{color:"gold", position: 'absolute', bottom: '1%', left: '5%'}} />
+        <Text style={Style.tableViewSectionHeaderText}>
+          LATEST {selectedGC || "ITUNES"} GC RATES($)
+        </Text>
+      </View>
+    );
+  }
+}
 
-export default CustomSectionHeader
+const mapStateToProps = ({ misc }) => ({
+  selectedGC: misc.selectedGC
+});
+export default connect(mapStateToProps)(CustomSectionHeader);

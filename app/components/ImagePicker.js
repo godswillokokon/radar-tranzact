@@ -98,8 +98,6 @@ export default class RadarImagePicker extends React.Component {
       quality: 1
     })
 
-    console.log(result)
-
     if (!result.cancelled) {
       this.setState(({ images }) => ({ images: images.concat(result.uri) }))
       this.props.onCardImageSelected(this.state.images)
@@ -136,7 +134,7 @@ export default class RadarImagePicker extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <Button
-          title="Pick an image from camera roll"
+          title="Select GC Card Image"
           onPress={this._pickImage}
         />
         <View style={Style.listView}>

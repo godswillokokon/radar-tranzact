@@ -9,6 +9,7 @@ import {
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import CustomSectionHeader from './customHeader'
 import CustomSectionFooter from './customFooter'
+import Style from './rateStyle'
 
 class AmazonRates extends Component {
   render() {
@@ -21,35 +22,35 @@ class AmazonRates extends Component {
           <Cell
             cellStyle="RightDetail"
             title="CURRENCY RANGE"
-            detailTextStyle={{ fontSize: 13 }}
-            titleTextStyle={{ fontSize: 13 }}
+            detailTextStyle={Style.tableViewSectionDetailTextStyle}
+            titleTextStyle={Style.tableViewSectionTitleTextStyle}
             detail="RATE"
           />
           <Cell
             cellStyle="RightDetail"
-            titleTextStyle={{ fontSize: 13 }}
-            detailTextStyle={{ fontSize: 13 }}
+            detailTextStyle={Style.tableViewSectionDetailTextStyle}
+            titleTextStyle={Style.tableViewSectionTitleTextStyle}
             title="$101 - $200"
-            detail="$250"
+            detail="$213"
           />
           <Cell
             cellStyle="RightDetail"
-            titleTextStyle={{ fontSize: 13 }}
-            detailTextStyle={{ fontSize: 13 }}
+            detailTextStyle={Style.tableViewSectionDetailTextStyle}
+            titleTextStyle={Style.tableViewSectionTitleTextStyle}
             title="$201 - $1000"
-            detail="$255"
+            detail="$225"
           />
           <Cell
             cellStyle="RightDetail"
-            titleTextStyle={{ fontSize: 13 }}
-            detailTextStyle={{ fontSize: 13 }}
+            detailTextStyle={Style.tableViewSectionDetailTextStyle}
+            titleTextStyle={Style.tableViewSectionTitleTextStyle}
             title="$201 - $1000"
-            detail="$255"
+            detail="$655"
           />
           <Cell
             cellStyle="RightDetail"
-            titleTextStyle={{ fontSize: 13 }}
-            detailTextStyle={{ fontSize: 13 }}
+            detailTextStyle={Style.tableViewSectionDetailTextStyle}
+            titleTextStyle={Style.tableViewSectionTitleTextStyle}
             title="E-CODE"
             detail="$200"
           />

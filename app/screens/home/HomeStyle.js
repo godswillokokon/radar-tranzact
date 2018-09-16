@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
-import * as theme from '../../utils/Theme'
+import * as theme from '@utils/Theme'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     color: '#667c88',
     fontSize: 10
   },
-  amountContainer: { padding: 20 },
+  amountContainer: { padding: 10 },
   amountContainerTitle: { fontSize: 13, color: '#2f2f2f' },
   amountContainerSample: { fontSize: 13, color: '#2f2f2f', marginLeft: 10 },
   amountTextInputTitle: {

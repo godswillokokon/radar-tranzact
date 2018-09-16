@@ -16,9 +16,12 @@ import {
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
 import { NewTransaction } from '@actions/TransactionActions'
+import { SelectGiftCard } from '@actions/MiscActions'
 import RadarImagePicker from '@components/ImagePicker'
 import VerificationModal from '@components/verifyModal'
 import ItunesRates from '@components/giftcardrates/itunesRates'
+import AmazonRates from '@components/giftcardrates/amazonRates'
+import SteamRates from '@components/giftcardrates/steamRates'
 import Style from './HomeStyle'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
@@ -46,9 +49,9 @@ const servicesStructure = [
 
 class Home extends Component {
   state = {
-    isGcSelected: false,
-    gcSelected: null,
-    cardTotalAmount: '0',
+    isGcSelected: true,
+    gcSelected: 'ITUNES',
+    cardTotalAmount: '',
     cardImages: []
   }
 
@@ -57,6 +60,7 @@ class Home extends Component {
       isGcSelected: true,
       gcSelected: gc
     }))
+    this.props.onSelectGC(gc)
   }
 
   onCardImageSelected = cardImages => {
@@ -87,8 +91,7 @@ class Home extends Component {
         enabled
         keyboardVerticalOffset={height / 6}
       >
-        <VerificationModal />
-        <StatusBar barStyle={'light-content'} />
+        {/*<VerificationModal /> */}
         <ScrollView
           style={{ width: '100%' }}
           keyboardShouldPersistTaps="handled"
@@ -132,12 +135,17 @@ class Home extends Component {
             })}
           </View>
 
-          <ItunesRates />
+          {gcSelected === 'ITUNES' && <ItunesRates /> }
+          {gcSelected === 'AMAZON' && <AmazonRates /> }
+          {gcSelected === 'STEAM' && <SteamRates /> }
+          <View>
+            <RadarImagePicker onCardImageSelected={this.onCardImageSelected} />
+          </View>
+          <View style={{ margin: 10 }} />
           <View style={Style.amountContainer}>
             <Text style={Style.amountContainerTitle}>
-              Please enter total amount of card you're selling below.
+              Please enter total amount of card:
             </Text>
-            <View style={{ margin: 10 }} />
 
             <View style={Style.amountTextInputContainer}>
               <View
@@ -159,9 +167,6 @@ class Home extends Component {
               </View>
             </View>
           </View>
-          <View>
-            <RadarImagePicker onCardImageSelected={this.onCardImageSelected} />
-          </View>
           <TouchableOpacity style={Style.buttonContainer} onPress={this.onSubmit}>
             <Text style={Style.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
@@ -180,7 +185,8 @@ const styles = {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (data) => dispatch(NewTransaction(data))
+  onSubmit: (data) => dispatch(NewTransaction(data)),
+  onSelectGC: (selection) => dispatch(SelectGiftCard(selection))
 })
 
 export default connect(null, mapDispatchToProps)(Home);

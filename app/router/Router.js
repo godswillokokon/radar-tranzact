@@ -4,10 +4,11 @@ import {
   createBottomTabNavigator,
   createDrawerNavigator
 } from 'react-navigation'
-import Home from '../screens/home'
-import Profile from '../screens/profile'
-import SideMenu from '../screens/sideMenu'
-import * as theme from '../utils/Theme'
+import Home from '@screens/home'
+import Profile from '@screens/profile'
+import TransactionHistory from '@screens/transactionHistory'
+import SideMenu from '@screens/sideMenu'
+import * as theme from '@utils/Theme'
 import { images } from '../../assets'
 import Menu from './Menu'
 import Tab from './Tab'
@@ -43,6 +44,23 @@ const profileNavigator = createStackNavigator({
     })
   }
 })
+
+
+const transactionHistoryNavigator = createStackNavigator({
+  TransactionHistory: {
+    screen: TransactionHistory,
+    navigationOptions: ({ navigation }) => ({
+      title: `History`,
+      headerTintColor: 'white',
+      headerStyle: { backgroundColor: theme.colors.darkFusion },
+      headerTitleStyle: {
+        fontSize: 18
+      },
+      headerLeft: <Menu navigation={navigation} />
+    })
+  }
+})
+
 
 // MARK: - TabNavigator
 
@@ -94,7 +112,10 @@ const tabNavigator = createBottomTabNavigator(
 
 export default createDrawerNavigator(
   {
-    TabNavigator: { screen: tabNavigator }
+    TabNavigator: { screen: tabNavigator },
+    TransactionHistory: {
+      screen: transactionHistoryNavigator
+    }
   },
   {
     contentComponent: SideMenu

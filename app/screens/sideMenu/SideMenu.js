@@ -8,7 +8,7 @@ export default class SideMenu extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Transaction History</Text>
+        <Text style={styles.text} onPress={() => this.props.navigation.navigate('TransactionHistory')}>Transaction History</Text>
         <Text style={styles.text} onPress={() => Linking.openURL('whatsapp://send?phone=2348141224609')}>Chat with a staff</Text>
         <Text style={styles.text}>Terms and Conditions</Text>
         <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.closeDrawer())}>

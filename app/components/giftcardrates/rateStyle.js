@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native'
+import * as theme from '@utils/Theme'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +21,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#667c88',
     fontSize: 10
+  },
+  tableViewSectionDetailTextStyle: {
+    fontSize: 13
+  },
+  tableViewSectionTitleTextStyle: {
+    fontSize: 13
   }
 })
 
