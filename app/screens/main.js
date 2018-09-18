@@ -61,10 +61,6 @@ class Main extends Component {
 
   _simulateSignup = (phoneNumber, password, confirmPassword) => {
     this.setState({ isLoading: true });
-    // setTimeout(
-    //   () => this.setState({ isLoggedIn: true, isLoading: false }),
-    //   1000
-    // );
     this.props.onSignUp({ phoneNumber, password, confirmPassword})
   };
 

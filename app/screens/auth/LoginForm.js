@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native'
 import { Text, View } from 'react-native-animatable'
 
 import CustomButton from '@components/auth/CustomButton'
 import CustomTextInput from '@components/auth/CustomTextInput'
-import metrics from '../../config/metrics'
+import Styles from './AuthStyle';
 
 export default class LoginForm extends Component {
   // static propTypes = {
@@ -34,8 +33,8 @@ export default class LoginForm extends Component {
     const { isLoading, onSignupLinkPress, onLoginPress } = this.props
     const isValid = phoneNumber !== '' && password !== ''
     return (
-      <View style={styles.container}>
-        <View style={styles.form} ref={(ref) => { this.formRef = ref }}>
+      <View style={Styles.InputFormContainer}>
+        <View style={Styles.InputFormForm} ref={(ref) => { this.formRef = ref }}>
           <CustomTextInput
             name={'phoneNumber'}
             ref={(ref) => this.mobileInputRef = ref}
@@ -61,20 +60,20 @@ export default class LoginForm extends Component {
             isEnabled={!isLoading}
           />
         </View>
-        <View style={styles.footer}>
+        <View style={Styles.InputFormFooter}>
           <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
             <CustomButton
               onPress={() => onLoginPress(phoneNumber, password)}
               isEnabled={isValid}
               isLoading={isLoading}
-              buttonStyle={styles.loginButton}
-              textStyle={styles.loginButtonText}
+              buttonStyle={Styles.InputFormAccoutButton}
+              textStyle={Styles.InputFormAccountButtonText}
               text={'Log In'}
             />
           </View>
           <Text
             ref={(ref) => this.linkRef = ref}
-            style={styles.signupLink}
+            style={Styles.InputFormAccountLink}
             onPress={onSignupLinkPress}
             animation={'fadeIn'}
             duration={600}
@@ -87,28 +86,3 @@ export default class LoginForm extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: metrics.DEVICE_WIDTH * 0.1
-  },
-  form: {
-    marginTop: 20
-  },
-  footer: {
-    height: 100,
-    justifyContent: 'center'
-  },
-  loginButton: {
-    backgroundColor: 'white'
-  },
-  loginButtonText: {
-    color: '#3E464D',
-    fontWeight: 'bold'
-  },
-  signupLink: {
-    color: 'rgba(255,255,255,0.6)',
-    alignSelf: 'center',
-    padding: 20
-  }
-})

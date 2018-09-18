@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native'
 import { Text, View } from 'react-native-animatable'
 
 import CustomButton from '@components/auth/CustomButton'
 import CustomTextInput from '@components/auth/CustomTextInput'
-import metrics from '../../config/metrics'
+import Styles from './AuthStyle';
+
 
 export default class SignupForm extends Component {
   // static propTypes = {
@@ -35,8 +35,8 @@ export default class SignupForm extends Component {
     const { isLoading, onLoginLinkPress, onSignupPress } = this.props
     const isValid = phoneNumber !== '' && password !== '' && confirmPassword !== ''
     return (
-      <View style={styles.container}>
-        <View style={styles.form} ref={(ref) => this.formRef = ref}>
+      <View style={Styles.InputFormContainer}>
+        <View style={Styles.InputFormForm} ref={(ref) => this.formRef = ref}>
           <CustomTextInput
             ref={(ref) => this.mobileInputRef = ref}
             placeholder={'Mobile Number'}
@@ -72,20 +72,20 @@ export default class SignupForm extends Component {
             isEnabled={!isLoading}
           />
         </View>
-        <View style={styles.footer}>
+        <View style={Styles.InputFormFooter}>
           <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
             <CustomButton
               onPress={() => onSignupPress(phoneNumber, password, confirmPassword)}
               isEnabled={isValid}
               isLoading={isLoading}
-              buttonStyle={styles.createAccountButton}
-              textStyle={styles.createAccountButtonText}
+              buttonStyle={Styles.InputFormAccoutButton}
+              textStyle={Styles.InputFormAccountButtonText}
               text={'Create Account'}
             />
           </View>
           <Text
             ref={(ref) => this.linkRef = ref}
-            style={styles.loginLink}
+            style={Styles.InputFormAccountLink}
             onPress={onLoginLinkPress}
             animation={'fadeIn'}
             duration={600}
@@ -98,28 +98,3 @@ export default class SignupForm extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: metrics.DEVICE_WIDTH * 0.1
-  },
-  form: {
-    marginTop: 20
-  },
-  footer: {
-    height: 100,
-    justifyContent: 'center'
-  },
-  createAccountButton: {
-    backgroundColor: 'white'
-  },
-  createAccountButtonText: {
-    color: '#3E464D',
-    fontWeight: 'bold'
-  },
-  loginLink: {
-    color: 'rgba(255,255,255,0.6)',
-    alignSelf: 'center',
-    padding: 20
-  }
-})

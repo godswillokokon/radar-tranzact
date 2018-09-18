@@ -33,15 +33,12 @@ export const logout = () => dispatch => {
 
 export const createAccount = data => async dispatch => {
   try {
-    console.log(data);
     const response = await axios.post(`${BASE_URL}/auth/signup`, { ...data });
-    console.log(response.data.data);
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
     });
   } catch (e) {
-    console.log(e, e.name, e.response);
     dispatch({
       type: "USER_AUTH_ERROR",
       payload: e.response.data.message
