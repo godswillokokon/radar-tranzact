@@ -8,6 +8,7 @@ import Home from '@screens/home'
 import Profile from '@screens/profile'
 import TransactionHistory from '@screens/transactionHistory'
 import SideMenu from '@screens/sideMenu'
+import MainScreen from '@screens/main'
 import * as theme from '@utils/Theme'
 import { images } from '../../assets'
 import Menu from './Menu'
@@ -58,6 +59,13 @@ const transactionHistoryNavigator = createStackNavigator({
       },
       headerLeft: <Menu navigation={navigation} />
     })
+  }
+})
+
+const MainNavigator = createStackNavigator({
+  Main: {
+    screen: MainScreen,
+    navigationOptions: { header: null }
   }
 })
 
@@ -115,9 +123,13 @@ export default createDrawerNavigator(
     TabNavigator: { screen: tabNavigator },
     TransactionHistory: {
       screen: transactionHistoryNavigator
-    }
+    },
+     Main: {
+      screen: MainNavigator
+    },
   },
   {
-    contentComponent: SideMenu
+    contentComponent: SideMenu,
+    initialRouteName: 'Main',
   }
 )

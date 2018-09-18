@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   tOverview: {
     backgroundColor: theme.colors.darkFusion,
-    height: '50%'
+    height: '35%'
   },
   overviewContainer: {
     backgroundColor: '#FFFFFF',
@@ -48,7 +48,48 @@ const styles = StyleSheet.create({
   overviewResult: {
     fontSize: 30,
     fontWeight: 'bold'
-  }
+  },
+  logContainer: {
+    margin: 20
+  },
+  logWrapper: {
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#b2b2b2',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3
+  },
+  logDetail: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  logDate: {
+    marginBottom: 10,
+    color: '#b2b2b2'
+  },
+  status: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    top: 2,
+    marginRight: 5
+  },
+  statusVerifying: {
+    backgroundColor: '#d89517'
+  },
+  statusCaution: {
+    backgroundColor: '#e20606'
+  },
+  statusSuccess: {
+    backgroundColor: '#1b871b'
+  },
+  statusText: {
+    color: '#b2b2b2',
+    fontSize: 12
+  },
+  logDivider: {borderWidth: 0.5, borderColor: '#b2b2b2', marginVertical: 10, marginHorizontal: 5}
 })
 
 export default styles

@@ -29,9 +29,9 @@ class TransactionHistory extends Component {
         return +(num / decimal).toFixed(digits) + units[i];
       }
     }
-
     return num;
   }
+
   render() {
     return (
       <View>
@@ -50,6 +50,36 @@ class TransactionHistory extends Component {
                 PENDING PAYOUTS
               </Text>
               <Text style={Style.overviewResult}>$ {this.kFormatter(200)}</Text>
+            </View>
+          </View>
+        </View>
+        <View style={Style.logContainer}>
+          <View style={Style.logWrapper}>
+            <Text style={Style.logDate}>MARCH 12 2018</Text>
+            <View style={Style.logDetail}>
+              <View>
+                <Text>ITUNES</Text>
+                <View style={{flexDirection: 'row', paddingTop: 3}}>
+                  <View style={[Style.status, Style.statusVerifying]} />
+                  <Text style={Style.statusText}>VERIFYING</Text>
+                </View>
+              </View>
+              <View>
+                <Text>$ 2000</Text>
+              </View>
+            </View>
+            <View style={Style.logDivider} />
+            <View style={Style.logDetail}>
+              <View>
+                <Text>AMAZON</Text>
+                <View style={{flexDirection: 'row', paddingTop: 3}}>
+                  <View style={[Style.status, Style.statusSuccess]} />
+                  <Text style={Style.statusText}>SUCCESS</Text>
+                </View>
+              </View>
+              <View>
+                <Text>$ 2000</Text>
+              </View>
             </View>
           </View>
         </View>
