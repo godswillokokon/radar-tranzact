@@ -15,9 +15,8 @@ export default class LoginForm extends Component {
   // }
 
   state = {
-    email: '',
-    password: '',
-    fullName: ''
+    phoneNumber: '',
+    password: ''
   }
 
   hideForm = async () => {
@@ -31,23 +30,23 @@ export default class LoginForm extends Component {
   }
 
   render () {
-    const { email, password } = this.state
+    const { phoneNumber, password } = this.state
     const { isLoading, onSignupLinkPress, onLoginPress } = this.props
-    const isValid = email !== '' && password !== ''
+    const isValid = phoneNumber !== '' && password !== ''
     return (
       <View style={styles.container}>
         <View style={styles.form} ref={(ref) => { this.formRef = ref }}>
           <CustomTextInput
-            name={'email'}
-            ref={(ref) => this.emailInputRef = ref}
-            placeholder={'Email'}
-            keyboardType={'email-address'}
+            name={'phoneNumber'}
+            ref={(ref) => this.mobileInputRef = ref}
+            placeholder={'Mobile Number'}
+            keyboardType={'numeric'}
             editable={!isLoading}
             returnKeyType={'next'}
             blurOnSubmit={false}
             withRef={true}
             onSubmitEditing={() => this.passwordInputRef.focus()}
-            onChangeText={(value) => this.setState({ email: value })}
+            onChangeText={(value) => this.setState({ phoneNumber: value })}
             isEnabled={!isLoading}
           />
           <CustomTextInput
@@ -65,7 +64,7 @@ export default class LoginForm extends Component {
         <View style={styles.footer}>
           <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
             <CustomButton
-              onPress={() => onLoginPress(email, password)}
+              onPress={() => onLoginPress(phoneNumber, password)}
               isEnabled={isValid}
               isLoading={isLoading}
               buttonStyle={styles.loginButton}

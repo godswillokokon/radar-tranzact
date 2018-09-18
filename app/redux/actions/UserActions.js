@@ -1,26 +1,50 @@
-import * as types from '../types';
-import store from '../store';
+import axios from "axios";
+import { BASE_URL } from "@constants/BaseUrl";
+import * as types from "../types";
 
-// MARK - Setter
-
-export const setUserName = name => {
-  store.dispatch(storeUserName(name));
-};
-
-// MARK - Getter
-
-export const getUserName = () => {
-  const state = store.getState();
-  return state.user.name;
-};
-
-// MARK - Actions
-
-const storeUserName = name => {
-  return dispatch => {
+export const login = data => async dispatch => {
+  try {
+    const response = await axios.post(`${BASE_URL}/auth/signin`, { ...data });
     dispatch({
-      type: types.USER_NAME,
-      payload: name,
+      type: "USER_LOGIN_SUCCESS",
+      payload: response.data
     });
-  };
+  } catch (e) {
+    dispatch({
+      type: "USER_AUTH_ERROR",
+      payload: e.response.data.message
+    });
+  }
+};
+
+export const resetFailureAction = () => dispatch => {
+  dispatch({
+    type: "USER_AUTH_ERROR",
+    payload: null
+  });
+};
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: "USER_LOGIN_SUCCESS",
+    payload: null
+  });
+};
+
+export const createAccount = data => async dispatch => {
+  try {
+    console.log(data);
+    const response = await axios.post(`${BASE_URL}/auth/signup`, { ...data });
+    console.log(response.data.data);
+    dispatch({
+      type: "USER_LOGIN_SUCCESS",
+      payload: response.data
+    });
+  } catch (e) {
+    console.log(e, e.name, e.response);
+    dispatch({
+      type: "USER_AUTH_ERROR",
+      payload: e.response.data.message
+    });
+  }
 };

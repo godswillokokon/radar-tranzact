@@ -1,16 +1,27 @@
-import * as types from '../types';
+import * as types from "../types";
 
 const initialState = {
-  name: false,
+  token: {},
+  authError: null,
+  createResponse: {}
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case types.USER_NAME:
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+    case types.USER_LOGIN_SUCCESS:
       return {
         ...state,
-        status: types.USER_NAME,
-        name: action.payload,
+        token: payload
+      };
+    case types.USER_AUTH_ERROR:
+      return {
+        ...state,
+        authError: payload
+      };
+    case types.USER_CREATE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        createResponse: payload
       };
     default:
       return state;
