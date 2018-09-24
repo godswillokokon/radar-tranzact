@@ -16,9 +16,10 @@ import {
 } from 'react-native'
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
-import Spinner from "react-native-loading-spinner-overlay";
+import Spinner from 'react-native-loading-spinner-overlay'
+import DropdownAlert from 'react-native-dropdownalert'
 import { NewTransaction } from '@actions/TransactionActions'
-import { SelectGiftCard } from '@actions/MiscActions'
+import { SelectGiftCard, ResetAlert } from '@actions/MiscActions'
 import RadarImagePicker from '@components/ImagePicker'
 import VerificationModal from '@components/verifyModal'
 import ItunesRates from '@components/giftcardrates/itunesRates'
@@ -57,6 +58,14 @@ class Home extends Component {
     cardImages: []
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { displayAlert } = this.props.misc;
+    console.log(displayAlert)
+    if(displayAlert) {
+      this.dropdown.alertWithType(displayAlert.messageType, displayAlert.messageType, displayAlert.message)
+    }
+  }
+
   onGCSelected = gc => {
     this.setState(({ isGcSelected }) => ({
       isGcSelected: true,
@@ -71,26 +80,28 @@ class Home extends Component {
     })
   }
 
+  onAlertClose(data) {
+    this.props.resetAlert()
+  }
+
   onSubmit = async () => {
     const { cardImages, cardTotalAmount, gcSelected } = this.state
-    const getUser = await AsyncStorage.getItem('user');
-    console.log(getUser);
+    const getUser = await AsyncStorage.getItem('user')
     const payload = {
       cardImages,
-      cardTotalAmount,
+      totalAmount: cardTotalAmount,
       cardType: gcSelected,
       user: getUser
     }
-    console.log('--asub', payload)
     this.props.onSubmit(payload, this.props.navigation.navigate)
+    // console.log(this.props.navigation)
   }
 
   render() {
     const { isGcSelected, gcSelected } = this.state
-     const {
-      misc: { showSpinner },
-    } = this.props;
-
+    const {
+      misc: { showSpinner }
+    } = this.props
     return (
       <KeyboardAvoidingView
         style={Style.container}
@@ -98,60 +109,60 @@ class Home extends Component {
         enabled
         keyboardVerticalOffset={height / 6}
       >
-        {/*<VerificationModal /> */}
-        <Spinner
-          visible={showSpinner}
-          textContent={"Please wait..."}
-          textStyle={{ color: "#333" }}
-        />
+        <VerificationModal visible={showSpinner} textContent={'Submitting, Please wait...'} />
         <ScrollView
           style={{ width: '100%' }}
           keyboardShouldPersistTaps="handled"
         >
           <Text style={styles.text}>Select GC you want to sell</Text>
           <View style={Style.services}>
-            {servicesStructure.map(({ serviceText, imageUri, key: cardKey }, key) => {
-              return (
-                <TouchableHighlight
-                  key={key}
-                  onPress={() => this.onGCSelected(cardKey)}
-                  activeOpacity={10}
-                  style={Style.serviceTouchable}
-                  underlayColor="#bababa"
-                >
-                  <View style={Style.servicesImageWrapper}>
-                    <Image
-                      style={[
-                        Style.serviceImage,
-                        isGcSelected && gcSelected === cardKey
-                          ? Style.serviceSelectedHightlight
-                          : {}
-                      ]}
-                      source={{
-                        uri: imageUri
-                      }}
-                    />
-                    <Text
-                      style={[
-                        Style.serviceText,
-                        isGcSelected && gcSelected === cardKey
-                          ? Style.serviceSelectedHightlightText
-                          : {}
-                      ]}
-                    >
-                      {serviceText}
-                    </Text>
-                  </View>
-                </TouchableHighlight>
-              )
-            })}
+            {servicesStructure.map(
+              ({ serviceText, imageUri, key: cardKey }, key) => {
+                return (
+                  <TouchableHighlight
+                    key={key}
+                    onPress={() => this.onGCSelected(cardKey)}
+                    activeOpacity={10}
+                    style={Style.serviceTouchable}
+                    underlayColor="#bababa"
+                  >
+                    <View style={Style.servicesImageWrapper}>
+                      <Image
+                        style={[
+                          Style.serviceImage,
+                          isGcSelected && gcSelected === cardKey
+                            ? Style.serviceSelectedHightlight
+                            : {}
+                        ]}
+                        source={{
+                          uri: imageUri
+                        }}
+                      />
+                      <Text
+                        style={[
+                          Style.serviceText,
+                          isGcSelected && gcSelected === cardKey
+                            ? Style.serviceSelectedHightlightText
+                            : {}
+                        ]}
+                      >
+                        {serviceText}
+                      </Text>
+                    </View>
+                  </TouchableHighlight>
+                )
+              }
+            )}
           </View>
 
-          {gcSelected === 'ITUNES' && <ItunesRates /> }
-          {gcSelected === 'AMAZON' && <AmazonRates /> }
-          {gcSelected === 'STEAM' && <SteamRates /> }
+          {gcSelected === 'ITUNES' && <ItunesRates />}
+          {gcSelected === 'AMAZON' && <AmazonRates />}
+          {gcSelected === 'STEAM' && <SteamRates />}
           <View>
-            <RadarImagePicker gcSelected={gcSelected} onCardImageSelected={this.onCardImageSelected} />
+            <RadarImagePicker
+              gcSelected={gcSelected}
+              onCardImageSelected={this.onCardImageSelected}
+            />
           </View>
           <View style={{ margin: 10 }} />
           <View style={Style.amountContainer}>
@@ -179,10 +190,17 @@ class Home extends Component {
               </View>
             </View>
           </View>
-          <TouchableOpacity style={Style.buttonContainer} onPress={this.onSubmit}>
+          <TouchableOpacity
+            style={Style.buttonContainer}
+            onPress={this.onSubmit}
+          >
             <Text style={Style.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
         </ScrollView>
+        <DropdownAlert
+          ref={ref => (this.dropdown = ref)}
+          onClose={data => this.onAlertClose(data)}
+        />
       </KeyboardAvoidingView>
     )
   }
@@ -196,13 +214,17 @@ const styles = {
   }
 }
 
-const mapStateToProps = ({misc}) => ({
+const mapStateToProps = ({ misc }) => ({
   misc
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (data) => dispatch(NewTransaction(data)),
-  onSelectGC: (selection) => dispatch(SelectGiftCard(selection))
+  onSubmit: (data, navigation) => dispatch(NewTransaction(data, navigation)),
+  onSelectGC: selection => dispatch(SelectGiftCard(selection)),
+  resetAlert: () => dispatch(ResetAlert())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)

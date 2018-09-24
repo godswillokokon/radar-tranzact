@@ -4,13 +4,11 @@ import * as types from "../types";
 
 export const login = data => async dispatch => {
   try {
-    console.log(data)
     const response = await Axios.post(`/auth/login`, { ...data });
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
     });
-    console.log(response)
   } catch (e) {
     dispatch({
       type: "USER_AUTH_ERROR",

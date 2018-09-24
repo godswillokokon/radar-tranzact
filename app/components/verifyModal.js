@@ -3,17 +3,18 @@ import {View, Modal, Image, StyleSheet, Text, ActivityIndicator} from "react-nat
 
 class VerificationModal extends Component {
   render() {
+    const { visible, textContent } = this.props
     return (
       <Modal
         transparent={true}
-        visible
+        visible={visible}
         animationType={"slide"}
       >
         <View style={styles.modalContainer}>
           <View style={styles.innerContainer}>
             <ActivityIndicator size="large" color="#A1A6B4" />
             <Text style={styles.text}>
-              Verifying Transaction
+              {textContent}
             </Text>
           </View>
         </View>

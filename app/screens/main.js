@@ -6,7 +6,6 @@ import DropdownAlert from 'react-native-dropdownalert'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
 import { login, resetFailureAction, createAccount } from '@actions/UserActions'
-import { BASE_URL } from '@constants/BaseUrl'
 import Home from './home'
 import AuthScreen from './auth'
 
@@ -33,7 +32,6 @@ class Main extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (get(prevProps.auth, 'token') !== get(this.props.auth, 'token')) {
-      console.log(this.props.auth)
       setTimeout(
         () => this.setState({ isLoggedIn: true, isLoading: false }),
         1000
@@ -66,7 +64,7 @@ class Main extends Component {
     this.props.onSignUp({ mobile, password, confirmPassword })
   }
 
-  onClose(data) {
+  onAlertClose(data) {
     this.props.resetFailureAction()
   }
 
@@ -119,7 +117,7 @@ class Main extends Component {
             />
             <DropdownAlert
               ref={ref => (this.dropdown = ref)}
-              onClose={data => this.onClose(data)}
+              onClose={data => this.onAlertClose(data)}
             />
           </View>
         )
