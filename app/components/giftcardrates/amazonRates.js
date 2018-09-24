@@ -30,29 +30,22 @@ class AmazonRates extends Component {
             cellStyle="RightDetail"
             detailTextStyle={Style.tableViewSectionDetailTextStyle}
             titleTextStyle={Style.tableViewSectionTitleTextStyle}
-            title="$101 - $200"
+            title="CARD ONE"
             detail="$213"
           />
           <Cell
             cellStyle="RightDetail"
             detailTextStyle={Style.tableViewSectionDetailTextStyle}
             titleTextStyle={Style.tableViewSectionTitleTextStyle}
-            title="$201 - $1000"
+            title="CARD TWO"
             detail="$225"
           />
           <Cell
             cellStyle="RightDetail"
             detailTextStyle={Style.tableViewSectionDetailTextStyle}
             titleTextStyle={Style.tableViewSectionTitleTextStyle}
-            title="$201 - $1000"
+            title="CARD THREE"
             detail="$655"
-          />
-          <Cell
-            cellStyle="RightDetail"
-            detailTextStyle={Style.tableViewSectionDetailTextStyle}
-            titleTextStyle={Style.tableViewSectionTitleTextStyle}
-            title="E-CODE"
-            detail="$200"
           />
         </Section>
       </TableView>

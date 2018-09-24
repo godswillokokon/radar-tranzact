@@ -15,7 +15,7 @@ export default class SignupForm extends Component {
   // }
 
   state = {
-    phoneNumber: '',
+    mobile: '',
     password: '',
     confirmPassword: ''
   }
@@ -31,9 +31,9 @@ export default class SignupForm extends Component {
   }
 
   render () {
-    const { phoneNumber, password, confirmPassword } = this.state
+    const { mobile, password, confirmPassword } = this.state
     const { isLoading, onLoginLinkPress, onSignupPress } = this.props
-    const isValid = phoneNumber !== '' && password !== '' && confirmPassword !== ''
+    const isValid = mobile !== '' && password !== '' && confirmPassword !== ''
     return (
       <View style={Styles.InputFormContainer}>
         <View style={Styles.InputFormForm} ref={(ref) => this.formRef = ref}>
@@ -46,7 +46,7 @@ export default class SignupForm extends Component {
             blurOnSubmit={false}
             withRef={true}
             onSubmitEditing={() => this.passwordInputRef.focus()}
-            onChangeText={(value) => this.setState({ phoneNumber: value })}
+            onChangeText={(value) => this.setState({ mobile: value })}
             isEnabled={!isLoading}
           />
           <CustomTextInput
@@ -75,7 +75,7 @@ export default class SignupForm extends Component {
         <View style={Styles.InputFormFooter}>
           <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
             <CustomButton
-              onPress={() => onSignupPress(phoneNumber, password, confirmPassword)}
+              onPress={() => onSignupPress(mobile, password, confirmPassword)}
               isEnabled={isValid}
               isLoading={isLoading}
               buttonStyle={Styles.InputFormAccoutButton}

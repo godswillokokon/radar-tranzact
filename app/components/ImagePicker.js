@@ -108,36 +108,51 @@ export default class RadarImagePicker extends React.Component {
     const { images } = this.state
     const cloneImages = [...images]
     const getIdx = cloneImages.indexOf(assetUrl)
-    const updatedList = cloneImages.splice(getIdx, 1);
+    const updatedList = cloneImages.splice(getIdx, 1)
     Alert.alert(
-        'Are you sure you want to delete?',
-        null,
-        [
-          { text: 'OK', onPress: () => {
-            this.setState({images: cloneImages}) 
+      'Are you sure you want to delete?',
+      null,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.setState({ images: cloneImages })
             this.props.onCardImageSelected(cloneImages)
           }
-          },
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel'
-          }
-        ]
-        //
-      )
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        }
+      ]
+      //
+    )
   }
 
   render() {
     let { image, images, hasCameraRollPermissions } = this.state
+    const { gcSelected } = this.props
 
     return (
       <View style={{ flex: 1 }}>
         <Button
-          title="Select GC Card Image"
+          title={
+            gcSelected === 'AMAZON'
+              ? 'Upload Amazon receipt'
+              : 'Select GC Card Image'
+          }
           onPress={this._pickImage}
         />
         <View style={Style.listView}>
+          {gcSelected === 'AMAZON' && (
+            <Text
+              style={Style.amazonGuideText}
+            >
+              We will still ask you to upload your card images after receipt
+              verification
+            </Text>
+          )}
           {images.length ? (
             <Fragment>
               {images.map((image, key) => (

@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Text, View, AsyncStorage, ActivityIndicator } from "react-native";
-import { AppLoading } from "expo";
-import axios from "axios";
-import DropdownAlert from "react-native-dropdownalert";
-import { connect } from "react-redux";
-import get from "lodash/get";
-import { login, resetFailureAction, createAccount } from "@actions/UserActions";
-import { BASE_URL } from "@constants/BaseUrl";
-import Home from "./home";
-import AuthScreen from "./auth";
+import React, { Component } from 'react'
+import { Text, View, AsyncStorage, ActivityIndicator } from 'react-native'
+import { AppLoading } from 'expo'
+import axios from 'axios'
+import DropdownAlert from 'react-native-dropdownalert'
+import { connect } from 'react-redux'
+import get from 'lodash/get'
+import { login, resetFailureAction, createAccount } from '@actions/UserActions'
+import { BASE_URL } from '@constants/BaseUrl'
+import Home from './home'
+import AuthScreen from './auth'
 
 class Main extends Component {
   state = {
@@ -18,76 +18,80 @@ class Main extends Component {
     authError: null,
     authReady: false,
     tokenValidity: null
-  };
+  }
 
   async componentDidMount() {
-    const checkForToken = await AsyncStorage.getItem("token");
-    console.log(checkForToken);
+    const checkForToken = await AsyncStorage.getItem('token')
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.auth.authError !== prevState.authError) {
-      return { authError: nextProps.auth.authError };
+      return { authError: nextProps.auth.authError }
     }
-    return null;
+    return null
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    if (
-      get(prevProps.auth, "token.data") !== get(this.props.auth, "token.data")
-    ) {
+    if (get(prevProps.auth, 'token') !== get(this.props.auth, 'token')) {
+      console.log(this.props.auth)
       setTimeout(
         () => this.setState({ isLoggedIn: true, isLoading: false }),
         1000
-      );
-      await AsyncStorage.setItem("token", get(this.props.auth, "token.data"));
-      return setTimeout(() => this.props.navigation.navigate("Home"), 2300);
+      )
+      await AsyncStorage.multiSet([
+        ['token', get(this.props.auth, 'token.token.accessToken')],
+        ['user',
+        get(this.props.auth, 'token.user.id')]]
+      )
+      return setTimeout(() => this.props.navigation.navigate('Home'), 2300)
     } else if (prevProps.auth.authError !== this.props.auth.authError) {
-      this._onError(this.props.auth.authError);
-      this.setState({ isLoading: false });
+      this._onError(this.props.auth.authError)
+      this.setState({ isLoading: false })
     }
   }
 
   _onError = error => {
     if (error) {
-      this.dropdown.alertWithType("error", "Error", error);
+      this.dropdown.alertWithType('error', 'Error', error)
     }
-  };
+  }
 
-  _simulateLogin = (phoneNumber, password) => {
-    this.setState({ isLoading: true });
-    this.props.onLogin({ phoneNumber, password });
-  };
+  _simulateLogin = (mobile, password) => {
+    this.setState({ isLoading: true })
+    this.props.onLogin({ mobile, password })
+  }
 
-  _simulateSignup = (phoneNumber, password, confirmPassword) => {
-    this.setState({ isLoading: true });
-    this.props.onSignUp({ phoneNumber, password, confirmPassword})
-  };
+  _simulateSignup = (mobile, password, confirmPassword) => {
+    this.setState({ isLoading: true })
+    this.props.onSignUp({ mobile, password, confirmPassword })
+  }
 
   onClose(data) {
-    this.props.resetFailureAction();
+    this.props.resetFailureAction()
   }
 
   getTokenValidity = async () => {
     try {
-      const token = await AsyncStorage.getItem("token");
-      const response = await axios.get(`${BASE_URL}/verifyUser`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      console.log(response);
+      // @TODO CHEKC TOKEN VALIDAITY
+      // const token = await AsyncStorage.getItem('token')
+      const multiGetKeys = await AsyncStorage.multiGet(['token', 'user']);
+      console.log(multiGetKeys[0][1], multiGetKeys[1][1])
+      const response = await axios.get(`${BASE_URL}/users/${multiGetKeys[1][1]}/verifyUser`, {
+        headers: { Authorization: `Bearer ${multiGetKeys[0][1]}` }
+      })
       return this.setState({
         tokenValidity: response.status
-      });
+      })
     } catch (e) {
-      console.log(e);
+      // console.log(e, e.response);
     }
-  };
+  }
 
   routeToRightView(data) {
-    if (this.state.tokenValidity === 200) {
-      this.props.navigation.navigate("Home");
+    if (this.state.tokenValidity === 200 || this.state.tokenValidity === 201) {
+      this.props.navigation.navigate('Home')
     } else {
-      this.setState({ authReady: true });
+      this.setState({ authReady: true })
     }
   }
 
@@ -98,14 +102,14 @@ class Main extends Component {
           <View
             style={{
               flex: 1,
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
           >
             <AppLoading />
-            <ActivityIndicator size={"large"} />
+            <ActivityIndicator size={'large'} />
           </View>
-        );
+        )
       } else {
         return (
           <View style={{ flex: 1 }}>
@@ -123,15 +127,15 @@ class Main extends Component {
               onClose={data => this.onClose(data)}
             />
           </View>
-        );
+        )
       }
     } else {
       return (
         <View
           style={{
             flex: 1,
-            justifyContent: "center",
-            alignItems: "center"
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
           <AppLoading
@@ -139,24 +143,24 @@ class Main extends Component {
             onFinish={() => this.routeToRightView()}
             onError={console.warn}
           />
-          <ActivityIndicator size={"large"} />
+          <ActivityIndicator size={'large'} />
         </View>
-      );
+      )
     }
   }
 }
 
 const mapStateToProps = ({ user }) => ({
   auth: user
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   onLogin: data => dispatch(login(data)),
   onSignUp: data => dispatch(createAccount(data)),
   resetFailureAction: () => dispatch(resetFailureAction())
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(Main)

@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1
   },
-  actionBtnIcon: { left: 4, bottom: 1 }
+  actionBtnIcon: { left: 4, bottom: 1 },
+  amazonGuideText: {
+    fontSize: 15,
+    color: '#667c88',
+    alignSelf: 'center',
+    marginHorizontal: 20
+  }
 })
 export default styles

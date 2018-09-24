@@ -14,7 +14,7 @@ export default class LoginForm extends Component {
   // }
 
   state = {
-    phoneNumber: '',
+    mobile: '',
     password: ''
   }
 
@@ -29,14 +29,14 @@ export default class LoginForm extends Component {
   }
 
   render () {
-    const { phoneNumber, password } = this.state
+    const { mobile, password } = this.state
     const { isLoading, onSignupLinkPress, onLoginPress } = this.props
-    const isValid = phoneNumber !== '' && password !== ''
+    const isValid = mobile !== '' && password !== ''
     return (
       <View style={Styles.InputFormContainer}>
         <View style={Styles.InputFormForm} ref={(ref) => { this.formRef = ref }}>
           <CustomTextInput
-            name={'phoneNumber'}
+            name={'mobile'}
             ref={(ref) => this.mobileInputRef = ref}
             placeholder={'Mobile Number'}
             keyboardType={'numeric'}
@@ -45,7 +45,7 @@ export default class LoginForm extends Component {
             blurOnSubmit={false}
             withRef={true}
             onSubmitEditing={() => this.passwordInputRef.focus()}
-            onChangeText={(value) => this.setState({ phoneNumber: value })}
+            onChangeText={(value) => this.setState({ mobile: value })}
             isEnabled={!isLoading}
           />
           <CustomTextInput
@@ -63,7 +63,7 @@ export default class LoginForm extends Component {
         <View style={Styles.InputFormFooter}>
           <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
             <CustomButton
-              onPress={() => onLoginPress(phoneNumber, password)}
+              onPress={() => onLoginPress(mobile, password)}
               isEnabled={isValid}
               isLoading={isLoading}
               buttonStyle={Styles.InputFormAccoutButton}

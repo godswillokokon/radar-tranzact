@@ -11,6 +11,7 @@ import {
   Dimensions,
   Switch,
   ScrollView,
+  AsyncStorage,
   KeyboardAvoidingView
 } from 'react-native'
 import { Icon } from 'native-base'
@@ -70,8 +71,10 @@ class Home extends Component {
     })
   }
 
-  onSubmit = () => {
+  onSubmit = async () => {
     const { cardImages, cardTotalAmount, gcSelected } = this.state
+    const getUser = await AsyncStorage.getItem('user');
+    console.log(user);
     const payload = {
       cardImages,
       cardTotalAmount,
@@ -139,7 +142,7 @@ class Home extends Component {
           {gcSelected === 'AMAZON' && <AmazonRates /> }
           {gcSelected === 'STEAM' && <SteamRates /> }
           <View>
-            <RadarImagePicker onCardImageSelected={this.onCardImageSelected} />
+            <RadarImagePicker gcSelected={gcSelected} onCardImageSelected={this.onCardImageSelected} />
           </View>
           <View style={{ margin: 10 }} />
           <View style={Style.amountContainer}>

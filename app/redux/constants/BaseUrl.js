@@ -1,1 +1,1 @@
-export const BASE_URL = "https://88157cbf.ngrok.io/api";
+export const BASE_URL = "http://localhost:3000/v1";

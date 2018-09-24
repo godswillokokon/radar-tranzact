@@ -4,11 +4,13 @@ import * as types from "../types";
 
 export const login = data => async dispatch => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/signin`, { ...data });
+    console.log(data)
+    const response = await axios.post(`${BASE_URL}/auth/login`, { ...data });
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
     });
+    console.log(response)
   } catch (e) {
     dispatch({
       type: "USER_AUTH_ERROR",
@@ -33,7 +35,7 @@ export const logout = () => dispatch => {
 
 export const createAccount = data => async dispatch => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/signup`, { ...data });
+    const response = await axios.post(`${BASE_URL}/auth/register`, { ...data });
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
