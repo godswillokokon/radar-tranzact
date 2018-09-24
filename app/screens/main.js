@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, AsyncStorage, ActivityIndicator } from 'react-native'
 import { AppLoading } from 'expo'
-import axios from 'axios'
+import Axios from '@utils/Axios'
 import DropdownAlert from 'react-native-dropdownalert'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
@@ -72,13 +72,8 @@ class Main extends Component {
 
   getTokenValidity = async () => {
     try {
-      // @TODO CHEKC TOKEN VALIDAITY
-      // const token = await AsyncStorage.getItem('token')
       const multiGetKeys = await AsyncStorage.multiGet(['token', 'user']);
-      console.log(multiGetKeys[0][1], multiGetKeys[1][1])
-      const response = await axios.get(`${BASE_URL}/users/${multiGetKeys[1][1]}/verifyUser`, {
-        headers: { Authorization: `Bearer ${multiGetKeys[0][1]}` }
-      })
+      const response = await Axios.get(`/users/${multiGetKeys[1][1]}/verifyUser`)
       return this.setState({
         tokenValidity: response.status
       })

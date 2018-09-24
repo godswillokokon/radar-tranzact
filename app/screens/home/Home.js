@@ -16,6 +16,7 @@ import {
 } from 'react-native'
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
+import Spinner from "react-native-loading-spinner-overlay";
 import { NewTransaction } from '@actions/TransactionActions'
 import { SelectGiftCard } from '@actions/MiscActions'
 import RadarImagePicker from '@components/ImagePicker'
@@ -65,7 +66,6 @@ class Home extends Component {
   }
 
   onCardImageSelected = cardImages => {
-    console.log(cardImages)
     this.setState({
       cardImages
     })
@@ -74,18 +74,22 @@ class Home extends Component {
   onSubmit = async () => {
     const { cardImages, cardTotalAmount, gcSelected } = this.state
     const getUser = await AsyncStorage.getItem('user');
-    console.log(user);
+    console.log(getUser);
     const payload = {
       cardImages,
       cardTotalAmount,
-      cardType: gcSelected
+      cardType: gcSelected,
+      user: getUser
     }
     console.log('--asub', payload)
-    this.props.onSubmit(payload)
+    this.props.onSubmit(payload, this.props.navigation.navigate)
   }
 
   render() {
     const { isGcSelected, gcSelected } = this.state
+     const {
+      misc: { showSpinner },
+    } = this.props;
 
     return (
       <KeyboardAvoidingView
@@ -95,6 +99,11 @@ class Home extends Component {
         keyboardVerticalOffset={height / 6}
       >
         {/*<VerificationModal /> */}
+        <Spinner
+          visible={showSpinner}
+          textContent={"Please wait..."}
+          textStyle={{ color: "#333" }}
+        />
         <ScrollView
           style={{ width: '100%' }}
           keyboardShouldPersistTaps="handled"
@@ -187,9 +196,13 @@ const styles = {
   }
 }
 
+const mapStateToProps = ({misc}) => ({
+  misc
+})
+
 const mapDispatchToProps = dispatch => ({
   onSubmit: (data) => dispatch(NewTransaction(data)),
   onSelectGC: (selection) => dispatch(SelectGiftCard(selection))
 })
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

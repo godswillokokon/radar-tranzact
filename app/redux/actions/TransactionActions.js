@@ -1,9 +1,10 @@
-import axios from 'axios'
-import { BASE_URL } from '@constants/BaseUrl'
+import Axios from '@utils/Axios'
+// import { BASE_URL } from '@constants/BaseUrl'
 
-export const NewTransaction = data => dispatch => {
+export const NewTransaction = (data, navigation) => dispatch => {
   //cardType, cardImages, TotalAmount
   console.log(data)
+  dispatch({ type: 'SHOW_SPINNER' });
   try {
     const form = new FormData()
     Object.keys(data).forEach(key => {
@@ -25,15 +26,16 @@ export const NewTransaction = data => dispatch => {
     const options = {
       method: 'POST',
       data: form,
-      url: `${BASE_URL}/transaction`
+      url: `/transaction/${data.user}`
     }
-    axios(options)
+    Axios(options)
       .then(response => {
+        console.log(response);
         // dispatch({ type: PRODUCT_CREATED, payload: response.data })
-        // dispatch({ type: HIDE_SPINNER })
+        dispatch({ type: 'HIDE_SPINNER' })
       })
       .catch(({ response }) => {
-        // dispatch({ type: HIDE_SPINNER })
+        dispatch({ type: 'HIDE_SPINNER' })
       })
   } catch (e) {
     console.log(e)

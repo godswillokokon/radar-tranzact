@@ -11,6 +11,16 @@ export default (state = initialState, {type, payload}) => {
         ...state,
         selectedGC: payload
       };
+      case types.SHOW_SPINNER:
+      return {
+         ...state,
+        showSpinner: true
+      }
+    case types.HIDE_SPINNER:
+      return {
+         ...state,
+        showSpinner: false
+      }
     default:
       return state;
   }

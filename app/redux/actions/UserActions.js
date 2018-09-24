@@ -1,11 +1,11 @@
-import axios from "axios";
+import Axios from "@utils/Axios";
 import { BASE_URL } from "@constants/BaseUrl";
 import * as types from "../types";
 
 export const login = data => async dispatch => {
   try {
     console.log(data)
-    const response = await axios.post(`${BASE_URL}/auth/login`, { ...data });
+    const response = await Axios.post(`/auth/login`, { ...data });
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
@@ -35,7 +35,7 @@ export const logout = () => dispatch => {
 
 export const createAccount = data => async dispatch => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/register`, { ...data });
+    const response = await Axios.post(`/auth/register`, { ...data });
     dispatch({
       type: "USER_LOGIN_SUCCESS",
       payload: response.data
