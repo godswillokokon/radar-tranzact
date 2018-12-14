@@ -10,8 +10,8 @@ export default class App extends Component {
     load: false,
   };
 
-  componentWillMount() {
-    loadAssets().then(() => this.setState({ load: true }));
+  async componentWillMount() {
+    await loadAssets().then(() => this.setState({ load: true }));
   }
 
   render() {

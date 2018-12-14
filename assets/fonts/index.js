@@ -5,6 +5,9 @@ export const fonts = [
     Panton: require('./Panton-BlackCaps.otf'),
   },
   {
+    Baskerville: require('./Panton-BlackCaps.otf'),
+  },
+  {
     PantonItalic: require('./Panton-BlackitalicCaps.otf'),
   },
   {

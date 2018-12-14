@@ -1,5 +1,4 @@
 import Axios from "@utils/Axios";
-import { BASE_URL } from "@constants/BaseUrl";
 import * as types from "../types";
 
 export const login = data => async dispatch => {
@@ -10,6 +9,7 @@ export const login = data => async dispatch => {
       payload: response.data
     });
   } catch (e) {
+    console.log(e, e.response, process.env.BASE_API)
     dispatch({
       type: "USER_AUTH_ERROR",
       payload: e.response.data.message
