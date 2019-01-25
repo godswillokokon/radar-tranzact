@@ -156,19 +156,22 @@ export default class RadarImagePicker extends React.Component {
           {images.length ? (
             <Fragment>
               {images.map((image, key) => (
-                <View key={key} style={Style.imagePreview}>
+                <TouchableOpacity key={key}>
+                <View style={Style.imagePreview}>
                   {image && (
                     <Image
                       source={{ uri: image }}
                       style={Style.imageSelected}
                     />
                   )}
-                  <TouchableOpacity onPress={() => this.removeImage(image)}>
+                  <TouchableOpacity style={{flex: 1}} onPress={() => this.removeImage(image)}>
                     <View style={Style.actionBtnView}>
                       <Icon name="md-close" style={Style.actionBtnIcon} />
                     </View>
                   </TouchableOpacity>
                 </View>
+                  </TouchableOpacity>
+                
               ))}
               {this.addImageBox()}
             </Fragment>

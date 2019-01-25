@@ -16,7 +16,11 @@ const styles = StyleSheet.create({
   },
   imageSelected: {
     width: width / 2 - 15,
-    height: 75
+    height: '100%',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    flex: 1
   },
   actionBtnView: {
     position: 'absolute',
@@ -27,7 +31,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#fff',
     borderRadius: 15,
-    borderWidth: 1
+    borderWidth: 1,
+    flex: 1,
+    zIndex: 10
   },
   actionBtnIcon: { left: 4, bottom: 1 },
   amazonGuideText: {
