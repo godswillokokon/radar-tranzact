@@ -2,6 +2,7 @@ import * as axios from 'axios'
 import AxiosRetry from 'axios-retry'
 import Session from './Session'
 
+console.log(process.env.BASE_API);
 const instance = axios.create({
   baseURL: process.env.BASE_API,
   headers: {

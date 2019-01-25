@@ -7,6 +7,7 @@ class VerificationModal extends Component {
     return (
       <Modal
         transparent={true}
+        onRequestClose={() => null}
         visible={visible}
         animationType={"slide"}
       >
