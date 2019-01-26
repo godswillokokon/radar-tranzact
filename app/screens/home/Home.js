@@ -86,7 +86,8 @@ class Home extends Component {
 
   onSubmit = async () => {
     const { cardImages, cardTotalAmount, gcSelected } = this.state
-    const getUser = await AsyncStorage.getItem('user')
+    const getUser = await AsyncStorage.getItem('user');
+    console.log(getUser);
     const payload = {
       cardImages,
       totalAmount: cardTotalAmount,

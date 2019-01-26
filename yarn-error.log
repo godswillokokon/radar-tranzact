@@ -1,11 +1,11 @@
 Arguments: 
-  /Users/jihdeh/.nvm/versions/node/v8.11.1/bin/node /Users/jihdeh/.yarn/bin/yarn.js add babel-plugin-inline-dotenv --dev
+  /Users/jihdeh/.nvm/versions/node/v8.11.1/bin/node /Users/jihdeh/.nvm/versions/node/v8.11.1/bin/yarn add jwt_decode
 
 PATH: 
-  /Users/jihdeh/.nvm/versions/node/v8.11.1/bin:/Users/jihdeh/go/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Users/jihdeh/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/jihdeh/Library/Android/sdk/tools:/Users/jihdeh/Library/Android/sdk/platform-tools:/Users/jihdeh/Documents/source/quinncia/scripts:/Users/jihdeh/Documents/source/quinncia/server/scripts
+  /Users/jihdeh/Documents/source/google-cloud-sdk/bin:/Users/jihdeh/.nvm/versions/node/v8.11.1/bin:/Users/jihdeh/go/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Users/jihdeh/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/jihdeh/Library/Android/sdk/tools:/Users/jihdeh/Library/Android/sdk/platform-tools:/Users/jihdeh/Documents/source/quinncia/scripts:/Users/jihdeh/Documents/source/quinncia/server/scripts
 
 Yarn version: 
-  1.9.4
+  1.13.0
 
 Node version: 
   8.11.1
@@ -14,9 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com registry.yarnpkg.com:443
-      at errnoException (dns.js:50:10)
-      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:92:26)
+  Error: https://registry.yarnpkg.com/jwt_decode: Not found
+      at Request.params.callback [as _callback] (/Users/jihdeh/.nvm/versions/node/v8.11.1/lib/node_modules/yarn/lib/cli.js:66255:18)
+      at Request.self.callback (/Users/jihdeh/.nvm/versions/node/v8.11.1/lib/node_modules/yarn/lib/cli.js:129397:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (/Users/jihdeh/.nvm/versions/node/v8.11.1/lib/node_modules/yarn/lib/cli.js:130369:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (/Users/jihdeh/.nvm/versions/node/v8.11.1/lib/node_modules/yarn/lib/cli.js:130291:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)
 
 npm manifest: 
   {
@@ -25,6 +33,7 @@ npm manifest:
     "dependencies": {
       "axios": "^0.18.0",
       "axios-retry": "^3.1.1",
+      "babel-plugin-inline-dotenv": "^1.1.2",
       "expo": "^30.0.1",
       "lodash": "^4.17.11",
       "native-base": "^2.8.0",
@@ -1001,6 +1010,12 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/babel-plugin-external-helpers/-/babel-plugin-external-helpers-6.22.0.tgz#2285f48b02bd5dede85175caf8c62e86adccefa1"
     dependencies:
       babel-runtime "^6.22.0"
+  
+  babel-plugin-inline-dotenv@^1.1.2:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/babel-plugin-inline-dotenv/-/babel-plugin-inline-dotenv-1.1.2.tgz#d9b43f48b1471506bdc5fe571a067472f16aedf6"
+    dependencies:
+      dotenv "^4.0.0"
   
   babel-plugin-module-resolver@^2.3.0, babel-plugin-module-resolver@^2.7.1:
     version "2.7.1"
@@ -2014,6 +2029,10 @@ Lockfile:
   dom-walk@^0.1.0:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
+  
+  dotenv@^4.0.0:
+    version "4.0.0"
+    resolved "http://registry.npmjs.org/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
   
   ee-first@1.1.1:
     version "1.1.1"

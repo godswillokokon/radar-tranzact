@@ -1,31 +1,31 @@
-import * as axios from 'axios'
-import AxiosRetry from 'axios-retry'
-import Session from './Session'
+import * as axios from "axios";
+import AxiosRetry from "axios-retry";
+import Session from "./Session";
+import { BASE_API } from "../config/base";
 
-console.log(process.env.BASE_API);
 const instance = axios.create({
-  baseURL: process.env.BASE_API,
+  baseURL: BASE_API,
   headers: {
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json"
   }
-})
+});
 
-AxiosRetry(axios, { retries: 3 })
+AxiosRetry(axios, { retries: 3 });
 
-Session.getData('token').then(tkn => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${tkn}`;
+Session.getData("token").then(tkn => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${tkn}`;
 });
 
 axios.interceptors.response.use(
   r => r,
   error => {
     if (error.response.status === 401 || error.response.status === 403) {
-      Session.logout()
-      return
+      Session.logout();
+      return;
     } else {
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
   }
-)
+);
 
-export { instance as default }
+export { instance as default };

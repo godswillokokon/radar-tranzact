@@ -1,7 +1,8 @@
 import * as types from "../types";
 
 const initialState = {
-  token: {},
+  token: null,
+  user: {},
   authError: null,
   createResponse: {}
 };
@@ -12,6 +13,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         token: payload
+      };
+
+    case types.USER_DATA:
+      return {
+        ...state,
+        user: payload
       };
     case types.USER_AUTH_ERROR:
       return {

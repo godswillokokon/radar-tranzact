@@ -28,7 +28,7 @@ const Session = {
   setData: async (key, data) => {
     try {
       if (data) {
-        await AsyncStorage.setItem(key,  data)
+        await AsyncStorage.setItem(key, data)
       } else {
         await AsyncStorage.removeItem(key)
       }

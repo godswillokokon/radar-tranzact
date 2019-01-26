@@ -7,3 +7,4 @@ export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
 export const DISPLAY_ALERT = 'DISPLAY_ALERT';
 export const RESET_DISPLAY_ALERT = 'RESET_DISPLAY_ALERT';
+export const USER_DATA = 'USER_DATA';

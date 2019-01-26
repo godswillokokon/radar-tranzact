@@ -15,9 +15,15 @@ import {
 } from "react-native";
 import { Icon } from "native-base";
 import { connect } from "react-redux";
+import { GetTransaction } from "../../redux/actions/TransactionActions";
 import Style from "./historyStyle";
 
 class TransactionHistory extends Component {
+  componentDidMount() {
+    console.log(this.props.user);
+    // GetTransaction(this.props.user.token.user.id)
+  }
+
   kFormatter(num, digits) {
     var units = ["k", "M", "G", "T", "P", "E", "Z", "Y"],
       decimal;
@@ -88,4 +94,8 @@ class TransactionHistory extends Component {
   }
 }
 
-export default TransactionHistory;
+const mapStateToProps = ({user}) => ({
+  user
+})
+
+export default connect(mapStateToProps)(TransactionHistory);
