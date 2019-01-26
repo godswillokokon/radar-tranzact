@@ -1,6 +1,7 @@
 import Axios from "@utils/Axios";
 import * as types from "../types";
 import Session from "@utils/Session";
+import SupportHeader from "@utils/SupportHeader";
 
 export const login = data => async dispatch => {
   try {
@@ -80,7 +81,7 @@ export const refreshAuthentication = token => async dispatch => {
 
 export const GetUserData = token => async dispatch => {
   try {
-    const response = await Axios.get("/users/profile");
+    const response = await Axios.get("/users/profile", await SupportHeader());
     Session.saveUser(response.data);
     dispatch({
       type: "USER_DATA",

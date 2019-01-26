@@ -21,7 +21,7 @@ import Style from "./historyStyle";
 class TransactionHistory extends Component {
   componentDidMount() {
     console.log(this.props.user);
-    // GetTransaction(this.props.user.token.user.id)
+    GetTransaction(this.props.user.user.id)
   }
 
   kFormatter(num, digits) {

@@ -17,7 +17,7 @@ const Session = {
   },
 
   saveToken: async (token) => {
-    await Session.setData(TokenKey, JSON.stringify(token))
+    await Session.setData(TokenKey, token)
   },
 
   logout: async () => {

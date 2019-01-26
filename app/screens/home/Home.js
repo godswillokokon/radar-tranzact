@@ -60,7 +60,6 @@ class Home extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { displayAlert } = this.props.misc;
-    console.log(displayAlert)
     if(displayAlert) {
       this.dropdown.alertWithType(displayAlert.messageType, displayAlert.messageType, displayAlert.message)
     }
@@ -87,12 +86,12 @@ class Home extends Component {
   onSubmit = async () => {
     const { cardImages, cardTotalAmount, gcSelected } = this.state
     const getUser = await AsyncStorage.getItem('user');
-    console.log(getUser);
+
     const payload = {
       cardImages,
       totalAmount: cardTotalAmount,
       cardType: gcSelected,
-      user: getUser
+      user: JSON.parse(getUser)
     }
     this.props.onSubmit(payload, this.props.navigation.navigate)
     // console.log(this.props.navigation)
